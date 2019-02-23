@@ -7,10 +7,12 @@ const cors = require('cors');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/node-rest-shop', {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useCreateIndex: true
 });
 
 app.use(morgan('dev'));
@@ -32,6 +34,7 @@ app.use(cors());
 
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
