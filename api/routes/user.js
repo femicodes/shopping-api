@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
 const User = require('../models/User');
 
 router.post('/signup', (req, res, next) => {
@@ -20,6 +19,7 @@ router.post('/signup', (req, res, next) => {
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if (err) {
+                        console.log('error one')
                         return res.status(500).json({
                             error: err
                         });
@@ -37,7 +37,8 @@ router.post('/signup', (req, res, next) => {
                                 });
                             })
                             .catch(err => {
-                                console.log(err);
+                                //console.log(err);
+                                console.log('error two')
                                 res.status(500).json({
                                     error: err
                                 });

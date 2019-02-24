@@ -61,8 +61,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", upload.single("productImage"), (req, res, next) => {
-  console.log(req.file);
+router.post("/", checkAuth, upload.single("productImage"), (req, res, next) => {
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -122,7 +121,7 @@ router.get("/:productID", (req, res, next) => {
     });
 });
 
-router.patch("/:productID", (req, res, next) => {
+router.patch("/:productID", checkAuth, (req, res, next) => {
   const updateOps = {};
   const id = req.params.productID;
   for (const ops of req.body) {
@@ -152,7 +151,7 @@ router.patch("/:productID", (req, res, next) => {
     });
 });
 
-router.delete("/:productID", (req, res, next) => {
+router.delete("/:productID", checkAuth, (req, res, next) => {
   Product.findByIdAndDelete({
       _id: req.params.productID
     })
